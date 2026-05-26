@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Currency Converter</title>
+
+  <style>
+    /* RESET */
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body{
+      background:#f0f4f8;
+      min-height:100vh;
+    }
+
+    /* NAVBAR */
+    nav{
+      background:#465f7b;
+      padding:15px 30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color:white;
+      flex-wrap:wrap;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .logo img{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid white;
+    }
+
+    nav h2{
+      font-size:24px;
+    }
+
+    nav ul{
+      list-style:none;
+      display:flex;
+      gap:20px;
+    }
+
+    nav ul li{
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    nav ul li:hover{
+      text-decoration:underline;
+      color:#dbeafe;
+    }
+
+    /* MAIN CONTAINER */
+    .container{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:40px 20px;
+    }
+
+    .converter-box{
+      background:#ffffff;
+      padding:35px;
+      border-radius:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      width:100%;
+      max-width:420px;
+      text-align:center;
+    }
+
+    /* MONEY ICON */
+    .money-icon{
+      width:70px;
+      height:70px;
+      background:#22c55e;
+      margin:0 auto 20px auto;
+      border-radius:10px;
+      position:relative;
+      box-shadow:0 4px 12px rgba(34,197,94,0.3);
+    }
+
+    .money-icon::before{
+      content:"$";
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      color:white;
+      font-size:30px;
+      font-weight:bold;
+    }
+
+    .converter-box h1{
+      font-size:28px;
+      margin-bottom:25px;
+      color:#1e293b;
+    }
+
+    /* INPUT */
+    .input-group{
+      margin-bottom:18px;
+      text-align:left;
+    }
+
+    .input-group label{
+      display:block;
+      margin-bottom:6px;
+      font-size:12px;
+      font-weight:700;
+      color:#64748b;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+
+    input,
+    select{
+      width:100%;
+      padding:14px;
+      border:2px solid #e2e8f0;
+      border-radius:10px;
+      outline:none;
+      font-size:16px;
+      transition:0.3s;
+      background:#f8fafc;
+    }
+
+    input:focus,
+    select:focus{
+      border-color:#3b82f6;
+      background:white;
+      box-shadow:0 0 0 4px rgba(59,130,246,0.15);
+    }
+
+    /* BUTTON */
+    button{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:10px;
+      background:#3b82f6;
+      color:white;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      margin-top:10px;
+      transition:0.3s;
+      box-shadow:0 4px 12px rgba(59,130,246,0.25);
+    }
+
+    button:hover{
+      background:#2563eb;
+      transform:translateY(-1px);
+    }
+
+    /* RESULT */
+    .result{
+      margin-top:25px;
+      padding-top:20px;
+      border-top:1px solid #e2e8f0;
+      font-size:22px;
+      font-weight:700;
+      min-height:50px;
+      color:#16a34a;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:600px){
+
+      nav{
+        flex-direction:column;
+        gap:15px;
+      }
+
+      nav ul{
+        flex-wrap:wrap;
+        justify-content:center;
+      }
+    }
+     .language-box{
+    position:absolute;
+    top:90px;
+    right:30px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:white;
+    padding:10px 15px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+    /* height: 30p */
+  }
+
+  .lang-text{
+    font-size:14px;
+    font-weight:600;
+    color:#334155;
+  }
+
+  #languageSwitcher{
+    border:none;
+    outline:none;
+    background:#f1f5f9;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    color:#1e293b;
+  }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+
+    <div class="logo">
+      <!-- Replace with your image -->
+      <img src="./photo/download.jfif" alt="Logo">
+      <h2>Fab.dev</h2>
+    </div>
+
+    <ul>
+      <li>Home</li>
+      <li>About</li>
+      <li>Services</li>
+      <li>Login</li>
+    </ul>
+
+  </nav>
+
+  <div class="language-box">
+
+  <span class="lang-text">🌐 Language</span>
+
+  <select id="languageSwitcher">
+
+    <option value="en">English</option>
+    <option value="rw">Kinyarwanda</option>
+
+  </select>
+  
+   <div class="language-box">
+    <a href="C:\Users\KAREMERA Arnauld\OneDrive\Desktop\l3swd prscticsl assessment\fabricegisubizo\index.html"style="text-decoration:none;">
+        <p>Signout</p>
+    </a>
+</div>
+
+</div>
+
+  <!-- MAIN -->
+  <div class="container">
+
+    <div class="converter-box">
+
+      <div class="money-icon"></div>
+
+      <h1>Currency Converter</h1>
+
+      <!-- AMOUNT -->
+      <div class="input-group">
+        <label>Enter Amount</label>
+        <input
+          type="number"
+          id="amount"
+          placeholder="Enter amount"
+        >
+      </div>
+
+      <!-- FROM -->
+      <div class="input-group">
+        <label>Convert From</label>
+
+        <select id="from">
+
+          <option value="USD">USD - US Dollar</option>
+          <option value="EUR">EUR - Euro</option>
+          <option value="GBP">GBP - British Pound</option>
+          <option value="CAD">CAD - Canadian Dollar</option>
+          <option value="INR">INR - Indian Rupee</option>
+          <option value="ZAR">ZAR - South African Rand</option>
+          <option value="RWF">RWF - Rwandan Franc</option>
+          <option value="KES">KES - Kenyan Shilling</option>
+          <option value="UGX">UGX - Ugandan Shilling</option>
+
+        </select>
+      </div>
+
+      <!-- TO -->
+      <div class="input-group">
+        <label>Convert To</label>
+
+        <select id="to">
+
+          <option value="USD">USD - US Dollar</option>
+          <option value="EUR">EUR - Euro</option>
+          <option value="GBP">GBP - British Pound</option>
+          <option value="CAD">CAD - Canadian Dollar</option>
+          <option value="INR">INR - Indian Rupee</option>
+          <option value="ZAR">ZAR - South African Rand</option>
+          <option value="RWF">RWF - Rwandan Franc</option>
+          <option value="KES">KES - Kenyan Shilling</option>
+          <option value="UGX">UGX - Ugandan Shilling</option>
+
+        </select>
+      </div>
+
+      <!-- BUTTON -->
+      <button onclick="translateTo()">
+        Convert Currency
+      </button>
+
+      <!-- RESULT -->
+      <div class="result" id="resultArea">
+        ---
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    /* CURRENCY RATES */
+    const Rates = {
+
+      USD: {
+        USD: 1,
+        EUR: 0.92,
+        GBP: 0.79,
+        CAD: 1.38,
+        INR: 95.37,
+        ZAR: 18.33,
+        RWF: 1300,
+        KES: 132.5,
+        UGX: 3780
+      },
+
+      EUR: {
+        USD: 1.09,
+        EUR: 1,
+        GBP: 0.86,
+        CAD: 1.50,
+        INR: 103.66,
+        ZAR: 19.80,
+        RWF: 1413,
+        KES: 144,
+        UGX: 4110
+      },
+
+      GBP: {
+        USD: 1.27,
+        EUR: 1.16,
+        GBP: 1,
+        CAD: 1.75,
+        INR: 120.50,
+        ZAR: 23.10,
+        RWF: 1650,
+        KES: 168,
+        UGX: 4800
+      },
+
+      CAD: {
+        USD: 0.72,
+        EUR: 0.67,
+        GBP: 0.57,
+        CAD: 1,
+        INR: 69.10,
+        ZAR: 13.20,
+        RWF: 940,
+        KES: 96,
+        UGX: 2740
+      },
+
+      INR: {
+        USD: 0.010,
+        EUR: 0.0096,
+        GBP: 0.0083,
+        CAD: 0.014,
+        INR: 1,
+        ZAR: 0.19,
+        RWF: 13.60,
+        KES: 1.39,
+        UGX: 39.60
+      },
+
+      ZAR: {
+        USD: 0.055,
+        EUR: 0.050,
+        GBP: 0.043,
+        CAD: 0.076,
+        INR: 5.20,
+        ZAR: 1,
+        RWF: 71,
+        KES: 7.20,
+        UGX: 205
+      },
+
+      RWF: {
+        USD: 0.00077,
+        EUR: 0.00071,
+        GBP: 0.00061,
+        CAD: 0.0011,
+        INR: 0.073,
+        ZAR: 0.014,
+        RWF: 1,
+        KES: 0.10,
+        UGX: 2.90
+      },
+
+      KES: {
+        USD: 0.0075,
+        EUR: 0.0069,
+        GBP: 0.0059,
+        CAD: 0.010,
+        INR: 0.72,
+        ZAR: 0.14,
+        RWF: 10,
+        KES: 1,
+        UGX: 28.50
+      },
+
+      UGX: {
+        USD: 0.00026,
+        EUR: 0.00024,
+        GBP: 0.00021,
+        CAD: 0.00036,
+        INR: 0.025,
+        ZAR: 0.0049,
+        RWF: 0.34,
+        KES: 0.035,
+        UGX: 1
+      }
+
+    };
+
+    /* CONVERT FUNCTION */
+    function translateTo() {
+
+      const amount = parseFloat(
+        document.getElementById("amount").value
+      );
+
+      const from = document.getElementById("from").value;
+
+      const to = document.getElementById("to").value;
+
+      const resultArea =
+        document.getElementById("resultArea");
+
+      /* VALIDATION */
+      if (isNaN(amount) || amount <= 0) {
+
+        resultArea.style.color = "red";
+
+        resultArea.innerHTML =
+          "Please enter a valid amount";
+
+        return;
+      }
+
+      /* GET RATE */
+      const rate = Rates[from]?.[to];
+
+      if (!rate) {
+
+        resultArea.style.color = "red";
+
+        resultArea.innerHTML =
+          "Conversion rate unavailable";
+
+        return;
+      }
+
+      /* CONVERT */
+      const converted = amount * rate;
+
+      /* DISPLAY RESULT */
+      resultArea.style.color = "green";
+
+      resultArea.innerHTML = `
+        <span>${amount} ${from}</span>
+        <br>
+        <strong>${converted.toFixed(2)} ${to}</strong>
+      `;
+    }
+
+  </script>
+  <script>
+     const languageData = {
+
+    en: {
+
+      home: "Home",
+      about: "About",
+      services: "Services",
+      login: "Login",
+
+      title: "Currency Converter",
+
+      amount: "Enter Amount",
+      from: "Convert From",
+      to: "Convert To",
+
+      placeholder: "Enter amount",
+
+      button: "Convert Currency"
+
+    },
+
+    rw: {
+
+      home: "Ahabanza",
+      about: "Ibyacu",
+      services: "Serivisi",
+      login: "Injira",
+
+      title: "Guhindura Amafaranga",
+
+      amount: "Andika Umubare",
+      from: "Hinduramo",
+      to: "Hinduriramo",
+
+      placeholder: "Andika amafaranga",
+
+      button: "Hindura Amafaranga"
+
+    }
+
+  };
+
+  /* =========================
+     LANGUAGE SWITCH
+  ========================== */
+
+  document
+  .getElementById("languageSwitcher")
+  .addEventListener("change", function(){
+
+    const lang = this.value;
+
+    /* NAVBAR */
+    const navItems =
+      document.querySelectorAll("nav ul li");
+
+    navItems[0].innerText =
+      languageData[lang].home;
+
+    navItems[1].innerText =
+      languageData[lang].about;
+
+    navItems[2].innerText =
+      languageData[lang].services;
+
+    navItems[3].innerText =
+      languageData[lang].login;
+
+    /* TITLE */
+    document.querySelector(
+      ".converter-box h1"
+    ).innerText =
+      languageData[lang].title;
+
+    /* LABELS */
+    const labels =
+      document.querySelectorAll(
+        ".input-group label"
+      );
+
+    labels[0].innerText =
+      languageData[lang].amount;
+
+    labels[1].innerText =
+      languageData[lang].from;
+
+    labels[2].innerText =
+      languageData[lang].to;
+
+    /* INPUT */
+    document.getElementById("amount")
+    .placeholder =
+      languageData[lang].placeholder;
+
+    /* BUTTON */
+    document.querySelector("button")
+    .innerText =
+      languageData[lang].button;
+
+  });
+  </script>
+
+</body>
+</html>
