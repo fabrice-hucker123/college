@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navbar Login Popup</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: white;
+      text-align: center;
+      margin: 0%;
+      padding: 0%;
+      width:100%;
+    }
+
+    nav {
+      background: #465f7b;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      /* position: fixed; */
+    }
+
+    nav h2 {
+      font-size: 24px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li {
+      cursor: pointer;
+    }
+
+    nav ul li:hover {
+      text-decoration: underline;
+    }
+
+    .div {
+      margin: 20px;
+    }
+
+    .popup {
+      position: fixed;
+      display: none;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      position: relative;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 25px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .popup-content input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .popup-content button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .popup-content button:hover {
+      background: #0056b3;
+    }
+
+    .div {
+      margin-left: 400px;
+      margin-top: -1px;
+    }
+
+    .div select {
+      height: 40px;
+      text-align: center;
+      border-color: rgb(19, 17, 17);
+      margin-left: 700px;
+    }
+
+    .image img {
+      width: 70px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    #head {
+      margin-right: 1000px;
+    }
+
+    .project {
+      background: gray;
+      width: 500px;
+      height: 400px;
+      padding: 50px;
+      border-radius: 20px;
+      margin-top: 50px;
+    }
+
+    .project ul li {
+      margin: 20px;
+    }
+
+    .div-1 {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+      margin: auto;
+    }
+
+    .project1 {
+      background: gray;
+      width: 500px;
+      height: 400px;
+      padding: 50px;
+      border-radius: 20px;
+      margin-top: 50px;
+      
+    }
+
+    .project1 p {
+      word-spacing: 5px;
+    }
+
+    .contact-form {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .contact-form button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .contact-form button:hover {
+      background: #00b34e;
+    }
+
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    #date,
+    #time {
+      color: cyan;
+    }
+    .container{
+      background: url(./photo/download.jfif);
+      background-attachment: fixed;
+      background-size: cover;
+      width: 100%;
+      height: 400px;
+      margin-top: -60px;
+      padding-top: 80px;
+      color: white;
+
+    }
+    
+    @media (max-width: 786px) {
+
+  /* NAVBAR */
+  nav {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  #title {
+    display: none; /* keep your original behavior */
+  }
+
+  #head {
+    margin-right: 0;
+  }
+
+  .image img {
+     
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid white;
+    
+  }
+
+  /* LANGUAGE SELECT */
+  .div {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .div select {
+    margin-left: 0;
+    width: 90%;
+  }
+
+  /* HERO SECTION */
+  .container {
+    height: auto;
+    padding: 40px 10px;
+    text-align: center;
+  }
+
+  .index img {
+    width: 80px;
+     
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid white;
+    
+  }
+
+  /* PROJECT SECTION */
+  .div-1 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .project,
+  .project1 {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+
+  /* CONTACT FORM */
+  .contact-form {
+    width: 90%;
+    margin: 20px auto;
+  }
+
+  /* FOOTER */
+  footer {
+    font-size: 14px;
+    padding: 10px;
+    /* display: flex; */
+    height: 300px;
+  }
+  footer p{
+    display: flex;
+    padding: 10px;
+    /* height: 300px; */
+  }
+  /* #footerText{ */
+    /* margin-top: -20px; */
+  }
+
+#date{
+  margin-top: -80px;
+  margin-left:500px ;
+}
+#time{
+   margin-top: 0px;
+  margin-left:500px ;
+}
+  </style>
+</head>
+
+<body>
+
+  <nav class="nav">
+    <div class="image">
+      <img
+        src="C:\Users\KAREMERA Arnauld\OneDrive\Desktop\l3swd prscticsl assessment\fabricegisubizo\photo\download.jfif"
+        alt="logo">
+    </div>
+
+    <h2 id="head">Fab.dev</h2>
+
+    <ul id="title">
+      <li><a href="index.html"style="color:white;">home</a></li>
+      <li><a href="#"style="color:white">About</a></li>
+      <li>Services</li>
+      <li onclick="openPopup()">Login</li>
+    </ul>
+  </nav>
+
+  <div class="div">
+    <select id="lang" onchange="updateLang()">
+      <option value="en">English</option>
+      <option value="rw">Kinyarwanda</option>
+    </select>
+  </div>
+
+  <div class="popup" id="loginPopup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+
+      <h2>Login Form</h2>
+      <input type="text" placeholder="Username">
+      <input type="password" placeholder="Password">
+      <a href="C:\Users\KAREMERA Arnauld\OneDrive\Desktop\l3swd prscticsl assessment\fabricegisubizo\currency.html">
+        <button>login</button></a>
+    </div>
+  </div>
+  <div class="container">
+    <div class="index">
+      <img
+        src="C:\Users\KAREMERA Arnauld\OneDrive\Desktop\l3swd prscticsl assessment\fabricegisubizo\photo\download - Copy.jfif"
+        width="100"style="border-radius:50%;">
+      <h2>Hey✌, I am Fabrice, web developer</h2>
+    </div>
+
+  </div>
+  <div class="div-1">
+    <div class="project">
+      <h1>Values</h1>
+      <ul>
+        <li>Leadership</li>
+        <li>Discipline</li>
+        <li>Responsibility</li>
+        <li>Hardwork</li>
+        <li>Teamwork</li>
+      </ul>
+    </div>
+
+    <div class="project1">
+      <h1>Mission</h1>
+      <p>To develop responsive, secure, and efficient web applications.</p>
+    </div>
+  </div>
+
+  <div class="contact-form">
+    <h2>Contact Us</h2>
+
+    <form>
+      <input type="text" placeholder="Your Name">
+      <input type="email" placeholder="Your Email">
+      <textarea rows="5" placeholder="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>Phone:0788867678</p>
+    <p>Email:fabrice@outlook.com</p>
+    <p>Github:<a href="" style="color:white;padding: 5px;">fabrice-hucker123</a></p>
+    <h1 id="footerText">My Website Footer</h1>
+    <div id="date"></div>
+    <div id="time"></div>
+  </footer>
+
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById("date").innerText = now.toLocaleDateString();
+      document.getElementById("time").innerText = now.toLocaleTimeString();
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+  </script>
+
+  <!-- POPUP -->
+  <script>
+    function openPopup() {
+      document.getElementById("loginPopup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("loginPopup").style.display = "none";
+    }
+  </script>
+
+  <!-- LANGUAGE SYSTEM (UPDATED) -->
+  <script>
+    function updateLang() {
+      const lang = document.getElementById("lang").value;
+
+      const head = document.getElementById("head");
+      const title = document.getElementById("title").getElementsByTagName("li");
+
+      const popupcontent = document.querySelector(".popup-content");
+      const popupTitle = popupcontent.querySelector("h2");
+      const popupBtn = popupcontent.querySelector("button");
+      const popupInput = popupcontent.querySelectorAll("input");
+
+      const footerText = document.getElementById("footerText");
+
+      const values = document.querySelector(".project h1");
+      const mission = document.querySelector(".project1 h1");
+      const missionText = document.querySelector(".project1 p");
+
+      const contactTitle = document.querySelector(".contact-form h2");
+      const contactInputs = document.querySelectorAll(".contact-form input, .contact-form textarea");
+      const contactBtn = document.querySelector(".contact-form button");
+
+      if (lang === "en") {
+
+        head.textContent = "My Website";
+        title[0].textContent = "Home";
+        title[1].textContent = "About";
+        title[2].textContent = "Services";
+        title[3].textContent = "Login";
+
+        popupTitle.textContent = "Login Form";
+        popupBtn.textContent = "Login";
+        popupInput[0].placeholder = "Username";
+        popupInput[1].placeholder = "Password";
+
+        values.textContent = "Values";
+        mission.textContent = "Mission";
+        missionText.textContent = "To develop responsive, secure, and efficient web applications.";
+
+        contactTitle.textContent = "Contact Us";
+        contactInputs[0].placeholder = "Your Name";
+        contactInputs[1].placeholder = "Your Email";
+        contactInputs[2].placeholder = "Your Message";
+        contactBtn.textContent = "Send Message";
+
+        footerText.textContent = "My Website Footer";
+      }
+
+      else if (lang === "rw") {
+
+        head.textContent = "Fab.dev";
+        title[0].textContent = "Ahabanza";
+        title[1].textContent = "Amakuru";
+        title[2].textContent = "Serivisi";
+        title[3].textContent = "Injira";
+
+        popupTitle.textContent = "Ifishi yo Kwinjira";
+        popupBtn.textContent = "Injira";
+        popupInput[0].placeholder = "Izina";
+        popupInput[1].placeholder = "Ijambo ry’ibanga";
+
+        values.textContent = "Indangagaciro";
+        mission.textContent = "Intego";
+        missionText.textContent = "Guteza imbere porogaramu zifasha abantu.";
+
+        contactTitle.textContent = "Twandikire";
+        contactInputs[0].placeholder = "Amazina yawe";
+        contactInputs[1].placeholder = "Imeri yawe";
+        contactInputs[2].placeholder = "Ubutumwa bwawe";
+        contactBtn.textContent = "Ohereza";
+
+        footerText.textContent = "Urubuga rwanjye";
+      }
+    }
+  </script>
+
+</body>
+
+</html>

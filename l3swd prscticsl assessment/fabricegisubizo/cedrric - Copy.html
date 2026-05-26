@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>cc</title>
+
+
+
+<style>
+
+/* Synchronized Dark Mode Design Tokens from Portfolio */
+
+:root {
+
+--bg-color: #0f172a;
+
+--card-bg: #1e293b;
+
+--text-color: #f8fafc;
+
+--text-muted: #cbd5e1;
+
+--text-light: #94a3b8;
+
+--border-color: #334155;
+
+--input-border: #475569;
+
+--primary-color: #7c3aed;
+
+--primary-hover: #6d28d9;
+
+--shadow: rgba(0,0,0,0.3);
+
+}
+
+
+
+* {
+
+margin: 0;
+
+padding: 0;
+
+box-sizing: border-box;
+
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+
+
+body {
+
+background: url(./photo/bg.jpg);
+
+color: var(--text-color);
+
+}
+
+
+
+/* NAVBAR */
+
+.nav {
+
+width: 100%;
+
+height: 80px;
+
+background: var(--primary-color);
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+
+padding: 0 20px;
+
+position: relative;
+
+z-index: 1000;
+
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+}
+
+
+
+/* LEFT CONTAINER: Groups logo and language button together */
+
+.nav-left {
+
+display: flex;
+
+align-items: center;
+
+gap: 15px;
+
+}
+
+
+
+/* LOGO */
+
+.logo {
+
+width: 60px;
+
+height: 60px;
+
+border-radius: 50%;
+
+object-fit: cover;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+}
+
+
+
+.logo img {
+
+width: 100%;
+
+height: 100%;
+
+border-radius: 50%;
+
+}
+
+
+
+/* LANGUAGE BUTTON */
+
+.lang-btn {
+
+padding: 6px 12px;
+
+border: 1px solid rgba(255, 255, 255, 0.4);
+
+border-radius: 6px;
+
+background: transparent;
+
+color: white;
+
+font-weight: bold;
+
+cursor: pointer;
+
+font-size: 14px;
+
+transition: all 0.3s;
+
+}
+
+
+
+.lang-btn:hover {
+
+background: white;
+
+color: var(--primary-color);
+
+}
+
+
+
+/* COMBINED CENTER CONTAINER */
+
+.center-menu-container {
+
+position: absolute;
+
+left: 50%;
+
+transform: translateX(-50%);
+
+display: flex;
+
+align-items: center;
+
+gap: 20px;
+
+border: 2px solid white;
+
+border-radius: 12px;
+
+padding: 8px 20px;
+
+z-index: 2000;
+
+}
+
+
+
+/* LOGIN BUTTON */
+
+.login-btn {
+
+padding: 8px 16px;
+
+border: none;
+
+border-radius: 8px;
+
+background: white;
+
+color: var(--primary-color);
+
+font-weight: bold;
+
+cursor: pointer;
+
+font-size: 16px;
+
+transition: background 0.3s;
+
+}
+
+
+
+.login-btn:hover {
+
+background: #f1f5f9;
+
+}
+
+
+
+/* HAMBURGER */
+
+.hamburger {
+
+display: none;
+
+flex-direction: column;
+
+gap: 5px;
+
+cursor: pointer;
+
+align-items: center;
+
+}
+
+
+
+.hamburger span {
+
+width: 30px;
+
+height: 4px;
+
+background: white;
+
+border-radius: 5px;
+
+}
+
+
+
+/* LINKS/DROPDOWN MENU */
+
+.dropdown-menu {
+
+display: flex;
+
+flex-direction: row; /* Horizontal on desktop */
+
+gap: 20px;
+
+list-style: none;
+
+}
+
+
+
+.dropdown-menu li a {
+
+text-decoration: none;
+
+color: rgba(255, 255, 255, 0.8);
+
+font-size: 16px;
+
+font-weight: 600;
+
+transition: color 0.2s;
+
+}
+
+
+
+.dropdown-menu li a:hover {
+
+color: white;
+
+}
+
+
+
+.nav-right-spacer {
+
+width: 120px;
+
+}
+
+
+
+/* LOGIN FORM */
+
+.contact-form {
+
+display: none;
+
+flex-direction: column;
+
+gap: 15px;
+
+justify-content: center;
+
+align-items: center;
+
+
+
+position: absolute;
+
+top: 100px;
+
+left: 50%;
+
+transform: translateX(-50%);
+
+
+
+width: 340px;
+
+height: 280px;
+
+
+
+background: var(--card-bg);
+
+border: 1px solid var(--border-color);
+
+
+
+border-radius: 12px;
+
+box-shadow: 0 10px 25px var(--shadow);
+
+z-index: 1000;
+
+}
+
+
+
+.contact-form input {
+
+width: 85%;
+
+padding: 12px;
+
+border-radius: 6px;
+
+background: var(--bg-color);
+
+color: var(--text-color);
+
+border: 1px solid var(--input-border);
+
+outline: none;
+
+font-size: 15px;
+
+transition: border-color 0.3s;
+
+}
+
+
+
+.contact-form input:focus {
+
+border-color: var(--primary-color);
+
+}
+
+
+
+.contact-form button {
+
+padding: 12px;
+
+width: 85%;
+
+border: none;
+
+background: var(--primary-color);
+
+color: white;
+
+border-radius: 6px;
+
+cursor: pointer;
+
+font-size: 16px;
+
+font-weight: bold;
+
+transition: background 0.3s;
+
+}
+
+
+
+.contact-form button:hover {
+
+background: var(--primary-hover);
+
+}
+
+
+
+/* RESPONSIVE MEDIA QUERIES (MOBILE BREAKPOINT) */
+
+@media(max-width: 900px) {
+
+.nav-right-spacer {
+
+display: none;
+
+}
+
+
+.hamburger {
+
+display: flex;
+
+}
+
+
+
+.dropdown-menu {
+
+display: none;
+
+flex-direction: column;
+
+gap: 15px;
+
+position: absolute;
+
+top: 65px;
+
+left: 50%;
+
+transform: translateX(-50%);
+
+width: 220px;
+
+padding: 20px;
+
+text-align: center;
+
+background: var(--card-bg);
+
+border: 1px solid var(--border-color);
+
+box-shadow: 0 10px 25px var(--shadow);
+
+border-radius: 12px;
+
+z-index: 3000;
+
+}
+
+
+
+/* Triggered via JS on Mobile */
+
+.dropdown-menu.active {
+
+display: flex;
+
+}
+
+
+
+.dropdown-menu li a {
+
+font-size: 18px;
+
+color: var(--text-color);
+
+}
+
+
+.dropdown-menu li a:hover {
+
+color: var(--primary-color);
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<div class="nav">
+
+<div class="nav-left">
+
+<div class="logo">
+
+<img src="./photo/pic.jpg" alt="logo">
+
+</div>
+
+</div>
+
+
+
+<div class="center-menu-container">
+
+<button class="login-btn" id="loginBtnText" onclick="toggleForm()">
+
+Login
+
+</button>
+
+
+
+<div class="hamburger" onclick="toggleMenu()">
+
+<span></span>
+
+<span></span>
+
+<span></span>
+
+</div>
+
+
+
+<ul class="dropdown-menu" id="menu">
+
+<li><a href="#" id="menuHome">Home</a></li>
+
+<li><a href="#" id="menuAbout">About</a></li>
+
+<li><a href="#" id="menuServices">Services</a></li>
+
+<li><a href="#" id="menuContact">Contact</a></li>
+
+</ul>
+
+</div>
+
+
+
+<div class="nav-right-spacer"></div>
+
+<button class="lang-btn" id="langBtn" onclick="toggleLanguage()">EN</button>
+
+</div>
+
+
+
+<form class="contact-form" id="loginForm" action="port.html">
+
+<input type="text" id="inputName" placeholder="Your Name" required>
+
+<input type="email" id="inputEmail" placeholder="Your Email" required>
+
+<input type="password" id="inputPass" placeholder="Your Password" required>
+
+<button type="submit" id="submitBtnText">Sign In</button>
+
+</form>
+
+<div class="name">
+
+<h3>Wwelcome To My Personal Profile</h3>
+
+<h3>I'm Dev__Cedric</h3>
+
+</div>
+
+
+
+<script>
+
+let currentLang = "EN";
+
+
+
+function toggleMenu(){
+
+const menu = document.getElementById("menu");
+
+const form = document.getElementById("loginForm");
+
+
+menu.classList.toggle("active");
+
+
+if (menu.classList.contains("active")) {
+
+form.style.display = "none";
+
+}
+
+}
+
+
+
+function toggleForm(){
+
+const form = document.getElementById("loginForm");
+
+const menu = document.getElementById("menu");
+
+
+if(form.style.display === "flex"){
+
+form.style.display = "none";
+
+} else {
+
+form.style.display = "flex";
+
+menu.classList.remove("active");
+
+}
+
+}
+
+
+
+function toggleLanguage() {
+
+const langBtn = document.getElementById("langBtn");
+
+const loginBtnText = document.getElementById("loginBtnText");
+
+const submitBtnText = document.getElementById("submitBtnText");
+
+
+const home = document.getElementById("menuHome");
+
+const about = document.getElementById("menuAbout");
+
+const services = document.getElementById("menuServices");
+
+const contact = document.getElementById("menuContact");
+
+
+
+const inputName = document.getElementById("inputName");
+
+const inputEmail = document.getElementById("inputEmail");
+
+const inputPass = document.getElementById("inputPass");
+
+
+
+if (currentLang === "EN") {
+
+currentLang = "KN";
+
+langBtn.innerText = "KN";
+
+loginBtnText.innerText = "Kwinjira";
+
+submitBtnText.innerText = "Injira";
+
+
+home.innerText = "Ahabanza";
+
+about.innerText = "Abo turibo";
+
+services.innerText = "Serivisi";
+
+contact.innerText = "Twandikire";
+
+
+
+inputName.placeholder = "Izina ryawe";
+
+inputEmail.placeholder = "Imeli yawe";
+
+inputPass.placeholder = "Ijambo rybanga";
+
+} else {
+
+currentLang = "EN";
+
+langBtn.innerText = "EN";
+
+loginBtnText.innerText = "Login";
+
+submitBtnText.innerText = "Sign In";
+
+
+home.innerText = "Home";
+
+about.innerText = "About";
+
+services.innerText = "Services";
+
+contact.innerText = "Contact";
+
+
+
+inputName.placeholder = "Your Name";
+
+inputEmail.placeholder = "Your Email";
+
+inputPass.placeholder = "Your Password";
+
+}
+
+}
+
+</script>
+
+
+
+</body>
+
+</html
