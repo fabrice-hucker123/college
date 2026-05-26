@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Navbar Login Popup</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f4f4;
+      text-align: center;
+    }
+
+    /* Navbar */
+    nav {
+      background: #007bff;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    nav h2 {
+      font-size: 24px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li {
+      cursor: pointer;
+    }
+
+    nav ul li:hover {
+      text-decoration: underline;
+    }
+
+    .div {
+      margin: 20px;
+    }
+
+    /* Full-screen Dark Overlay */
+    .popup {
+      position: fixed; 
+      display: none;   /* Hidden by default; turned to 'flex' via JS */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6); 
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* White Modal Box Content */
+    .popup-content {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      position: relative;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 25px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    /* Form styling inside popup */
+    .popup-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .popup-content input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .popup-content button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .popup-content button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h2 id="head">My Website</h2>
+
+    <ul id="title">
+      <li>Home</li>
+      <li>About</li>
+      <li>Services</li>
+      <li onclick="openPopup()">Login</li>
+    </ul>
+  </nav>
+
+  <div class="div">
+    <label for="lang">Language: </label>
+    <select name="lang" id="lang" onchange="updateLang()">
+      <option value="en">English</option>
+      <option value="rw">Kinyarwanda</option>
+    </select>
+  </div>
+
+  <div class="popup" id="loginPopup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup()">&times;</span>
+
+      <h2>Login Form</h2>
+
+      <input type="text" placeholder="Username">
+      <input type="password" placeholder="Password">
+
+      <button>Login</button>
+    </div>
+  </div>
+
+<script>
+    function openPopup(){
+        document.getElementById("loginPopup").style.display = "flex";
+    }
+    
+    function closePopup(){
+        document.getElementById("loginPopup").style.display = "none";
+    }
+    
+    function updateLang(){
+        const lang = document.getElementById("lang").value;
+        const head = document.getElementById("head");
+        const title = document.getElementById("title");
+        const listItems = title.getElementsByTagName("li");
+        
+        const popupcontent = document.querySelector(".popup-content");
+        // FIXED: Corrected selector targeting (removed [0])
+        const popupTitle = popupcontent.querySelector('h2');
+        const popupBtn = popupcontent.querySelector("button");
+        const popupInput=popupcontent.querySelectorAll("input");
+
+        switch(lang){
+            case "en":
+                head.textContent = "My Website";
+                listItems[0].innerText = "Home";
+                listItems[1].textContent = "About";
+                listItems[2].textContent = "Services";
+                listItems[3].textContent = "Login";
+                popupTitle.innerText = "Login Form";
+                popupBtn.innerText = "Login"; 
+              popupInput[0].placeholder = "Username";
+              popupInput[1].placeholder="password"
+                break;
+
+            case "rw":
+                head.textContent = "Urubuga";
+                listItems[0].textContent = "Ahabanza";
+                listItems[1].textContent = "Amakuru";
+                listItems[2].textContent = "Serivisi";
+                listItems[3].textContent = "Injira";
+                popupTitle.innerText = "Ifishi yo kwinjira";
+                popupBtn.innerText = "Injira"; 
+                    popupInput[0].placeholder = "izina";
+              popupInput[1].placeholder="ibanga"
+
+                break;
+        }
+    }
+</script>
+
+</body>
+</html>

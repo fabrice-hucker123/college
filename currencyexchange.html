@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Modern UI Reset & Background Setup */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container styling (.div2 wrapper) */
+        .div2 {
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+
+        /* INJECTING HEAD AND MONEY GRAPHIC VIA CSS PILL ELEMENTS */
+        .div2::before {
+            display: block;
+            margin-bottom: 25px;
+        }
+
+        /* 1. Injected Default Money Image (SVG Icon Vector representation) */
+        .div::before {
+            content: "";
+            display: block;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 15px auto;
+            background-color: #22c55e;
+            /* Renders a clean CSS-based visual money/cash icon stack */
+            clip-path: polygon(10% 25%, 90% 25%, 90% 75%, 10% 75%);
+            background-image: radial-gradient(circle, #ffffff 25%, transparent 26%), 
+                              linear-gradient(90deg, transparent 45%, #ffffff 45%, #ffffff 55%, transparent 55%);
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3);
+            border-radius: 6px;
+        }
+
+        /* 2. Injected Main Layout Header text */
+        .div2::before {
+            content: "Currency Converter";
+            font-size: 24px;
+            font-weight: 800;
+            color: #1e293b;
+            letter-spacing: -0.5px;
+            margin-bottom: 20px;
+        }
+
+        /* Input field container (.div) */
+        .div {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        /* Direct target styling for input field */
+        #amount {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        #amount:focus {
+            border-color: #3b82f6;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        /* Dropdown containers (.div-1 and .div-2) placed into a grid stack layout */
+        .div-1, .div-2 {
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        /* Dropdown custom labels injection via CSS */
+        .div-1::before {
+            content: "Convert From:";
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .div-2::before {
+            content: "Convert To:";
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Select elements custom design elements */
+        #from, #to {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 16px;
+            color: #1e293b;
+            background-color: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+        }
+
+        #from:focus, #to:focus {
+            border-color: #3b82f6;
+        }
+
+        /* Button element styling wrapper elements */
+        button[type="button"] {
+            width: 100%;
+            padding: 14px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        button[type="button"]:hover {
+            background: #2563eb;
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+            transform: translateY(-1px);
+        }
+
+        button[type="button"]:active {
+            transform: translateY(1px);
+        }
+
+        /* Dynamic result area output window wrapper spacing */
+        .result {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #f1f5f9;
+            font-size: 22px;
+            font-weight: 700;
+            min-height: 45px;
+            letter-spacing: -0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="div2"><div class="div">
+        <input type="number" value="amount"id="amount"></div>
+        <div class="div-1">
+        <select name="from" id="from">
+            <option value="USD" selected>USD - US Dollar</option>
+        <option value="EUR">EUR - Euro</option>
+        <option value="GBP">GBP - British Pound</option>
+        <option value="CAD">CAD - Canadian Dollar</option>
+        <option value="INR">INR - Indian Rupee</option>
+        <option value="ZAR">ZAR - South African Rand</option>
+        <option value="RWF">RWF - Rwandan Franc</option>
+        <option value="KES">KES - Kenyan Shilling</option>
+        <option value="UGX">UGX - Ugandan Shilling</option>
+       </select></div>
+        <div class="div-2">
+        <select name="to" id="to">
+            <option value="USD" selected>USD - US Dollar</option>
+        <option value="EUR">EUR - Euro</option>
+        <option value="GBP">GBP - British Pound</option>
+        <option value="CAD">CAD - Canadian Dollar</option>
+        <option value="INR">INR - Indian Rupee</option>
+        <option value="ZAR">ZAR - South African Rand</option>
+        <option value="RWF">RWF - Rwandan Franc</option>
+        <option value="KES">KES - Kenyan Shilling</option>
+        <option value="UGX">UGX - Ugandan Shilling</option>
+    </select></div>
+    <button type="button" onclick="translateTo()">convert</button>
+    <div class="result"id="resultArea">---</div>
+    </div>
+    <script>
+       
+        const Rates= {
+            USD:{
+      USD: 1,
+      EUR: 0.92,
+      RWF: 1300.00,
+      KES: 132.50,  UGX: 3780.00, CAD: 1.38,    INR: 95.37,   ZAR: 16.33,
+      GBP: 0.79
+
+            },
+            EUR:{
+              USD: 1.09,
+      EUR: 1,
+      RWF: 1413.00,
+      GBP: 0.86, 
+        KES: 144.00,  UGX: 4110.00, CAD: 1.50,    INR: 103.66,  ZAR: 17.75  
+            },
+           RWF: {
+      USD: 0.00077,
+      EUR: 0.00071,
+      RWF: 1,
+      GBP: 0.86, 
+        KES: 144.00,  UGX: 4110.00, CAD: 1.50,    INR: 103.66,  ZAR: 17.75
+    } 
+        };
+        function translateTo(){
+             const amount=document.getElementById("amount").value;
+        const from=document.getElementById("from").value;
+        const to=document.getElementById("to").value;
+        const resultArea=document.getElementById("resultArea");
+        if(isNaN(amount) || amount<=0){
+            resultArea.innerText="invalid";
+            resultArea.style.color="red";
+            
+        }
+        else{
+            resultArea.style.color="green";
+        }
+        
+        const rates=Rates[from][to];
+        const converted=amount*rates;
+        resultArea.innerText=`${amount} ${from} = ${converted.toFixed(2)} ${to}`;
+
+
+        }
+    </script>
+</body>
+</html>
